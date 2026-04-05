@@ -1,0 +1,35 @@
+# ---- Secrets ----
+.env
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ---- Virtual environment ----
+venv/
+.venv/
+env/
+
+# ---- Logs ----
+logs/*.log
+
+# ---- Data (raw downloads can be large) ----
+data/raw/*.csv
+data/raw/*.parquet
+
+# ---- IDE / Editor ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---- OS junk ----
+Thumbs.db
+.DS_Store
+desktop.ini

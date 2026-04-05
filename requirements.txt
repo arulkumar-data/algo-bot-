@@ -1,0 +1,15 @@
+# Core MT5 integration
+MetaTrader5>=5.0.45
+
+# Data handling
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Technical analysis indicators
+ta>=0.11.0
+
+# Plotting / charting
+matplotlib>=3.7.0
+
+# Environment variable management
+python-dotenv>=1.0.0
