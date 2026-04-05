@@ -3,13 +3,12 @@ main.py -- Entry Point for the MT5 Algo Trading Bot
 =====================================================
 This is the file you run:  python main.py
 
-Current state (Phase 5):
+Current state (Phase 6 - Final):
   1. Loads configuration from .env
   2. Connects to MetaTrader 5 terminal
-  3. Uses execution/paper_trader.py to:
-     - Run risk and safety checks
-     - Fetch data & generate signals
-     - Place demo trades via mt5/orders.py
+  3. Based on TRADING_MODE:
+     - "demo": Uses execution/paper_trader.py
+     - "live": Uses execution/live_trader.py (with safety delay)
   4. Disconnects cleanly
 """
 
@@ -81,17 +80,25 @@ def main():
         return
 
     try:
-        # --- Run Paper Trader (Phase 5) ---
-        from execution.paper_trader import run_single_check
-        result = run_single_check()
-        logger.info(f"Execution result: {result}")
+        if TRADING_MODE == "live":
+            # --- Run Live Trader (Phase 6) ---
+            from execution.live_trader import run_live_bot
+            logger.info("Executing Phase 6 Live Trader...")
+            # Automatically manage connection lifecycle inside live_trader
+            run_live_bot()
+        else:
+            # --- Run Paper Trader (Phase 5) ---
+            from execution.paper_trader import run_single_check
+            logger.info("Executing Phase 5 Paper Trader single check...")
+            result = run_single_check()
+            logger.info(f"Execution result: {result}")
 
     finally:
         # --- Step 7: Always disconnect cleanly ---
         disconnect_mt5()
 
     logger.info("Bot run complete.")
-    print("\n[OK] Phase 5 complete! Paper trading execution integrated.\n")
+    print("\n[OK] Algo Bot Execution complete.\n")
 
 
 if __name__ == "__main__":
